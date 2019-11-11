@@ -40,4 +40,8 @@ const run = async () => {
     console.log('Incoming message...', topic, message.toString())
   })
 }
+
+(async() => {
+  await run()
+})()
 ```
