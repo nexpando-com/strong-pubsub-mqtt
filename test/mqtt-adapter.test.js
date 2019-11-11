@@ -1,15 +1,17 @@
-# strong-pubsub-mqtt
-Pubsub adapter for MQTT broker
+import 'babel-polyfill'
+import Client from 'strong-pubsub'
+import Adapter from '../src/index'
 
-# Installation
-
-```sh
-npm add https://github.com/nexpando-com/strong-pubsub-mqtt.git --save
-```
-
-# Usage
-
-```javascript
+/**
+ * brokerUrl = 'mqtt://localhost:1883 | mqtts://localhost:8883 | wss://localhost/mqtt
+ * options:
+ *  - username
+ *  - password
+ *  - passphrase
+ *  - key 
+ *  - cert
+ *  - ca
+ */
 const options = { brokerUrl: 'mqtt://localhost:1883'}
 
 const client = new Client(options, Adapter)
@@ -23,7 +25,7 @@ const connect = () => {
   })
 }
 
-const run = async () => {
+describe("Connect to broker", async function() {
   client.on('connect', (data) => {
     console.log('Connected...', data)
   })
@@ -39,5 +41,4 @@ const run = async () => {
   client.on('message', function(topic, message, packet) {
     console.log('Incoming message...', topic, message.toString())
   })
-}
-```
+})
