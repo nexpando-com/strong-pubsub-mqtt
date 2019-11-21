@@ -1,5 +1,5 @@
 # strong-pubsub-mqtt
-Pubsub adapter for MQTT broker
+Pubsub adapter for MQTT broker. `strong-pubsub-mqtt` provides a convenient method to create a MQTT client in nodejs. It supports publishing and subscribing to topics.
 
 # Installation
 
