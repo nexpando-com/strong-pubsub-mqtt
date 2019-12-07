@@ -5,6 +5,8 @@ Pubsub adapter for MQTT broker. `strong-pubsub-mqtt` provides a convenient metho
 
 ```sh
 npm add https://github.com/nexpando-com/strong-pubsub-mqtt.git --save
+# or
+yarn add https://github.com/nexpando-com/strong-pubsub-mqtt.git
 ```
 
 # Usage
