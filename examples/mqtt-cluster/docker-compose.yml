@@ -1,0 +1,62 @@
+version: '3'
+networks:
+  http_network:
+    external: true
+  vernemq_network:
+    external: false
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 19.19.0.0/16
+services:
+  haproxy:
+    image: haproxy:1.9-alpine
+    container_name: haproxy
+    ports:
+      - 80:80
+      - 443:443
+      - 1883:1883
+      - 8883:8883
+      - 8888:8888
+      - 8080:8080
+    volumes:
+      - ./haproxy:/usr/local/etc/haproxy
+    networks:
+      - http_network
+      - vernemq_network
+    depends_on:
+      - vernemq1
+      - vernemq2
+      - vernemq3
+  vernemq1:
+    image: vernemq/vernemq
+    container_name: vernemq1
+    environment:
+      - DOCKER_VERNEMQ_ACCEPT_EULA=yes
+      - DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on
+    networks:
+      vernemq_network:
+        ipv4_address: 19.19.0.5
+  vernemq2:
+    image: vernemq/vernemq
+    container_name: vernemq2
+  vernemq2:
+    image: vernemq/vernemq
+    container_name: vernemq2
+    environment:
+      - DOCKER_VERNEMQ_ACCEPT_EULA=yes
+      - DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on
+      - DOCKER_VERNEMQ_DISCOVERY_NODE=19.19.0.5
+    networks:
+      vernemq_network:
+        ipv4_address: 19.19.0.6
+  vernemq3:
+    image: vernemq/vernemq
+    container_name: vernemq3
+    environment:
+      - DOCKER_VERNEMQ_ACCEPT_EULA=yes
+      - DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on
+      - DOCKER_VERNEMQ_DISCOVERY_NODE=19.19.0.5
+    networks:
+      vernemq_network:
+        ipv4_address: 19.19.0.7
